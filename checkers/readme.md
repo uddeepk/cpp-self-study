@@ -15,3 +15,9 @@ Possible ideas are to use more vectors, and store valid moveset instead of refer
 Beautify the code by
 branching that is visibly apparent.
 less usage of continue statements...
+Using objects ?
+Use of objects may help in easily defining behavior.
+
+For example, for jumps, we should check if there is a piece in the middle. 
+
+However, how would I visualize the lack of an object?
