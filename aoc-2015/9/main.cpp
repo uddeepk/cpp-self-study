@@ -16,33 +16,30 @@ int getShortestPath(std::vector <std::string> cities, std::map < std::tuple <std
 int getRouteDistance (std::vector<std::string> cities, std::map<std::vector<std::string>, int> &routes,
                       std::map<std::tuple<std::string, std::string>, int> flights);
 int computeRouteDistance (std::vector<std::string> cities, std::map<std::tuple<std::string, std::string>, int> flights);
+int getLongestPath(std::vector <std::string> cities, std::map < std::tuple <std::string, std::string>, int> ,
+                   std::map <std::vector <std::string>, int> &);
+
 template <typename T>
 void print ( const std::vector <T> &v);
 
 using std::cout;
 int main() {
-//    auto x = processFlightData("London to Dublin = 464");
-//
-//    std::cout << std::get<0> (x.first) << std::endl;
-////    x.first.swap();
-//    std::vector <std::string> test { "xxx", "yy" , "zsdfs"};
-//    std::next_permutation(std::begin(test), std::end(test));
-//    std::cout << test[1] ;
 
     std::vector<std::string> cities ;
 
     auto flights = getDistanceBetweenCities(cities);
     std::map <std::vector <std::string>, int> routes;
-//    print(cities);
-//    cout << flights[std::make_tuple("Dublin", "Belfast")];
-    cout << getShortestPath(cities, flights, routes);
+
+    cout << "Star 1: Shortest Path = " << getShortestPath(cities, flights, routes);
+    cout << "\n";
+    cout << "Star 2: Longest Path = " << getLongestPath(cities, flights, routes);
 
     return 0;
 }
 
 // Returns a map of different binary flight information and a vector of a ll cities.
 std::map<std::tuple<std::string, std::string>, int> getDistanceBetweenCities( std::vector <std::string> &v) {
-    std::string fileName = "test.txt";
+    std::string fileName = "input"; // used "test.txt" for testing
     std::ifstream myFile (fileName);
 
     std::map<std::tuple<std::string, std::string>, int> routeDists;
@@ -65,7 +62,7 @@ std::pair<std::tuple<std::string, std::string>, int> processFlightData(std::stri
     int distance;
     ss >> departureCity >> readBuffer >> arrivalCity >> readBuffer2 >> distance;
     if (readBuffer != "to" || readBuffer2 != "=") {
-        throw std::runtime_error("function processFlightData: Incorrect Input");
+        throw std::runtime_error("function processFlightData: Incorrect Input"); // fail fast
 //        exit(1);
     }
 
@@ -89,8 +86,10 @@ int getShortestPath(std::vector<std::string> cities, std::map<std::tuple<std::st
     } while ( std::next_permutation(std::begin(cities), std::end (cities)));
     return shortestPath;
 }
+
 template<typename T>
 void print(const std::vector<T> &v) {
+    // For testing my input
     for ( auto x : v) {
         std::cout << x << "\n";
     }
@@ -121,6 +120,17 @@ int computeRouteDistance(std::vector<std::string> cities, std::map<std::tuple<st
             d += flights[r2];
     }
     return d;
+}
+
+int getLongestPath(std::vector<std::string> cities, std::map<std::tuple<std::string, std::string>, int> flights,
+                   std::map<std::vector<std::string>, int> &routes) {
+    int longestPath = INT32_MIN;
+    do {
+        int routeDistance = getRouteDistance( cities, routes, flights);
+        if ( routeDistance > longestPath)
+            std::swap(routeDistance, longestPath);
+    } while ( std::next_permutation(std::begin(cities), std::end (cities)));
+    return longestPath;
 }
 
 
