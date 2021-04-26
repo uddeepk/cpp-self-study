@@ -62,3 +62,13 @@ void Password::incrementPassword() {
 
     }
 }
+
+std::string Password::getNextPassword() {
+    incrementPassword();
+    while (true) {
+        if( isNotConfusing() && hasStraight() &&  hasTwoPairs())
+            break;
+        incrementPassword();
+    }
+    return _password;
+}
