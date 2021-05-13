@@ -14,12 +14,14 @@ void star1(const std::string &filename);
 map< tuple<string, string>, int> getHappinessMap (const string&); // or pass stream ?
 std::pair< tuple<string, string>, int> getHappinessPair (const string &s);
 std::vector<string> tokenize (const string &s);
+void print(std::vector <string> s) ;
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
     // check tokenize
-
+    auto t = tokenize("Alice would gain 54 happiness units by sitting next to Bob.");
+    print(t);
     // Star1
     return 0;
 }
@@ -80,4 +82,10 @@ std::vector<string> tokenize (const string &s) {
         tokens.push_back(word);
     }
     return tokens;
+}
+
+void print(std::vector <string> v) {
+    for( const auto &x: v) {
+        std::cout << x << " ";
+    }
 }
