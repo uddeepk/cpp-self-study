@@ -7,6 +7,7 @@
 #include <iterator>
 #include <ranges>
 #include <algorithm>
+#include "Solution.hpp"
 
 using std::string;
 using std::tuple;
@@ -15,7 +16,7 @@ using std::map;
 void star1(const std::string &filename);
 map< tuple<string, string>, int> getHappinessMap (const string&); // or pass stream ?
 std::pair< tuple<string, string>, int> getHappinessPair (const string &s);
-std::vector<string> tokenize (const string &s);
+//std::vector<string> tokenize (const string &s);
 void print(std::vector <string> s) ;
 void print(std::pair<tuple<string, string>, int> p);
 
@@ -46,6 +47,16 @@ int main() {
 
     print(t2);
 
+    std::ranges::sort(t2);
+
+    print(t2);
+    std::next_permutation(t2.begin(), t2.end()-1);
+    print (t2);
+
+    Solution soln("test.txt");
+
+    print(soln._names);
+    std::cout << soln.calculateScore(soln._names) << "\n";
     return 0;
 }
 
@@ -99,16 +110,16 @@ std::pair<tuple<string, string>, int > getHappinessPair (const string &s) {
 
     return std::make_pair( std::make_tuple(name1, name2) , score);
 }
-
-std::vector<string> tokenize (const string &s) {
-    std::vector<string> tokens;
-    std::istringstream iss (s);
-    string word;
-    while (std::getline(iss, word, ' ')) {
-        tokens.push_back(word);
-    }
-    return tokens;
-}
+//
+//std::vector<string> tokenize (const string &s) {
+//    std::vector<string> tokens;
+//    std::istringstream iss (s);
+//    string word;
+//    while (std::getline(iss, word, ' ')) {
+//        tokens.push_back(word);
+//    }
+//    return tokens;
+//}
 
 void print(std::vector <string> v) {
     for( const auto &x: v) {
@@ -128,3 +139,4 @@ void Solution::addNames(const std::vector<string> &names) {
     }
 }
  */
+

@@ -1,6 +1,7 @@
 //
 // Created by uddeepk on 5/12/21.
 //
+#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <ranges>
@@ -10,8 +11,9 @@ using std::tuple;
 using std::string;
 using std::map;
 
-Solution::Solution(const std::string &filename):_happinessMap(getHappinessMap(filename)) {
-
+Solution::Solution(const std::string &filename) {
+    _happinessMap = getHappinessMap(filename);
+    std::ranges::sort(_names);
 }
 
 map< tuple<string, string>, int> Solution::getHappinessMap (const string &filename) {
@@ -62,7 +64,22 @@ void Solution::addNames(const std::vector<string> &names) {
     }
 }
 
-/*std::vector<string> tokenize(const string &s) {
+int Solution::calculateScore(std::vector <std::string> v) {
+    int score = 0;
+//    std::cout << v.size() << "***";
+    for( int i = 0 ; i < v.size() - 1; ++i) {
+        auto myTuple = std::make_tuple(v[0], v[1]);
+        score += _happinessMap[myTuple];
+        auto myTupleRev = std::make_tuple(v[1], v[0]);
+        score += _happinessMap[myTupleRev];
+
+        std::rotate(v.begin(), v.begin() + 1, v.end());
+
+    }
+    return score;
+}
+
+std::vector<string> tokenize(const string &s) {
     std::vector<string> tokens;
     std::istringstream iss (s);
     string word;
@@ -71,4 +88,3 @@ void Solution::addNames(const std::vector<string> &names) {
     }
     return tokens;
 }
-*/
