@@ -1,7 +1,6 @@
 //
 // Created by uddeepk on 5/12/21.
 //
-#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <ranges>
@@ -67,18 +66,14 @@ void Solution::addNames(const std::vector<string> &names) {
 
 int Solution::calculateScore(std::vector <std::string> v) {
     int score = 0;
-//    std::cout << v.size() << "***";
     for( int i = 0 ; i < v.size() ; ++i) {
         auto myTuple = std::make_tuple(v[0], v[1]);
         score += _happinessMap[myTuple];
-//        std::cout << _happinessMap[myTuple] << " ";
         auto myTupleRev = std::make_tuple(v[1], v[0]);
         score += _happinessMap[myTupleRev];
-//        std::cout << _happinessMap[myTupleRev]<< " ";
         std::rotate(v.begin(), v.begin() + 1, v.end());
 
     }
-//    std::cout << "\n";
     return score;
 }
 
@@ -86,12 +81,16 @@ int Solution::maxScore() {
     int max = std::numeric_limits<int>::min();
     do {
         int score = calculateScore(_names);
-//        std::cout << score << " ";
         if (score > max )
             max = score;
     }
     while (std::next_permutation(_names.begin() + 1, _names.end()));
     return max;
+}
+
+void Solution::addSelf() {
+    _names.push_back("Meh");
+    std::ranges::sort(_names);
 }
 
 std::vector<string> tokenize(const string &s) {

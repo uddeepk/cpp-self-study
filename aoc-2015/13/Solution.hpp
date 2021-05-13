@@ -8,13 +8,13 @@
 #include <map>
 #include <vector>
 #include <tuple>
-#include <iostream>
 class Solution {
 public:
     Solution(const std::string &filename);
     int maxScore ();
 
-private: // Commented for testing
+    void addSelf();
+private:
     std::map<std::tuple<std::string, std::string>, int> _happinessMap;
     std::vector <std::string> _names {};
 
