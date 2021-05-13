@@ -15,13 +15,26 @@ map< tuple<string, string>, int> getHappinessMap (const string&); // or pass str
 std::pair< tuple<string, string>, int> getHappinessPair (const string &s);
 std::vector<string> tokenize (const string &s);
 void print(std::vector <string> s) ;
+void print(std::pair<tuple<string, string>, int> p);
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
+    string testS = "Alice would gain 54 happiness units by sitting next to Bob.";
+    string testS2 = "Alice would lose 79 happiness units by sitting next to Carol.";
     // check tokenize
     auto t = tokenize("Alice would gain 54 happiness units by sitting next to Bob.");
     print(t);
+
+    // check pair
+    auto p = getHappinessPair(testS);
+    print (p);
+
+    auto t2 = tokenize(testS2);
+    print(t2);
+
+    auto p2 = getHappinessPair(testS2);
+    print(p2);
     // Star1
     return 0;
 }
@@ -88,4 +101,9 @@ void print(std::vector <string> v) {
     for( const auto &x: v) {
         std::cout << x << " ";
     }
+    std::cout << "\n";
+}
+
+void print(std::pair<tuple<string, string>, int> p) {
+    std::cout << std::get<0> (p.first) << "," << std::get<1>( p.first) << ":" << p.second << "\n";
 }
