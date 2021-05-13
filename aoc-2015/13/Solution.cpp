@@ -3,12 +3,14 @@
 //
 #include <sstream>
 #include <fstream>
+#include <ranges>
+#include <algorithm>
 #include "Solution.hpp"
 using std::tuple;
 using std::string;
 using std::map;
 
-Solution::Solution(const std::string &filename):happinessMap(getHappinessMap(filename)) {
+Solution::Solution(const std::string &filename):_happinessMap(getHappinessMap(filename)) {
 
 }
 
@@ -21,9 +23,11 @@ map< tuple<string, string>, int> Solution::getHappinessMap (const string &filena
         // Pass line and get the pair from readBuffer
         auto currentPair = getHappinessPair (readBuffer);
         // Add the pair to happinessScores
+        happinessScores.insert(currentPair);
     }
 
     // return happinessScores map
+    return happinessScores;
 }
 
 std::pair<tuple<string, string>, int> Solution::getHappinessPair(const string &s) {
@@ -38,6 +42,9 @@ std::pair<tuple<string, string>, int> Solution::getHappinessPair(const string &s
     name2.pop_back(); // to remove the period
 
     // add names to vector of names here because it'll be easier
+    std::vector names {name1, name2};
+    addNames(names);
+
     diff = tokens[2];
 
     score = std::stoi(tokens[3]);
@@ -48,7 +55,14 @@ std::pair<tuple<string, string>, int> Solution::getHappinessPair(const string &s
     return std::make_pair( std::make_tuple(name1, name2) , score);
 }
 
-std::vector<string> tokenize(const string &s) {
+void Solution::addNames(const std::vector<string> &names) {
+    for (const auto &c: names) {
+        if(std::ranges::find(_names, c) == _names.end())
+            _names.push_back(c);
+    }
+}
+
+/*std::vector<string> tokenize(const string &s) {
     std::vector<string> tokens;
     std::istringstream iss (s);
     string word;
@@ -57,3 +71,4 @@ std::vector<string> tokenize(const string &s) {
     }
     return tokens;
 }
+*/

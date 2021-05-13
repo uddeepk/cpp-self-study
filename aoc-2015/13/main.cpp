@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 #include <iterator>
+#include <ranges>
+#include <algorithm>
 
 using std::string;
 using std::tuple;
@@ -36,6 +38,14 @@ int main() {
     auto p2 = getHappinessPair(testS2);
     print(p2);
     // Star1
+
+    for (const auto &c: t) {
+        if(std::ranges::find(t2, c) == t2.end())
+            t2.push_back(c);
+    }
+
+    print(t2);
+
     return 0;
 }
 
@@ -61,9 +71,12 @@ map< tuple<string, string>, int> getHappinessMap (const string &filename) {
         // Pass line and get the pair from readBuffer
         auto currentPair = getHappinessPair (readBuffer);
         // Add the pair to happinessScores
+
+        happinessScores.insert(currentPair);
     }
 
     // return happinessScores map
+    return happinessScores;
 }
 
 std::pair<tuple<string, string>, int > getHappinessPair (const string &s) {
@@ -107,3 +120,11 @@ void print(std::vector <string> v) {
 void print(std::pair<tuple<string, string>, int> p) {
     std::cout << std::get<0> (p.first) << "," << std::get<1>( p.first) << ":" << p.second << "\n";
 }
+/*
+void Solution::addNames(const std::vector<string> &names) {
+    for (const auto &c: names) {
+        if(std::ranges::find(_names, c) == _names.end())
+            _names.push_back(c);
+    }
+}
+ */
