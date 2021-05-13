@@ -57,6 +57,8 @@ int main() {
 
     print(soln._names);
     std::cout << soln.calculateScore(soln._names) << "\n";
+
+    std::cout << soln.maxScore() << "\n";
     return 0;
 }
 

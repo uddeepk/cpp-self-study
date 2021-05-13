@@ -86,10 +86,11 @@ int Solution::maxScore() {
     int max = std::numeric_limits<int>::min();
     do {
         int score = calculateScore(_names);
+//        std::cout << score << " ";
         if (score > max )
             max = score;
     }
-    while (std::next_permutation(_names.begin(), _names.end()-1));
+    while (std::next_permutation(_names.begin() + 1, _names.end()));
     return max;
 }
 
