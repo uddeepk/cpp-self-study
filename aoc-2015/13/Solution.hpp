@@ -12,8 +12,9 @@
 class Solution {
 public:
     Solution(const std::string &filename);
+    int maxScore ();
 
-//private: // Commented for testing
+private: // Commented for testing
     std::map<std::tuple<std::string, std::string>, int> _happinessMap;
     std::vector <std::string> _names {};
 
@@ -24,7 +25,6 @@ public:
 
     int calculateScore (std::vector <std::string> v);
 
-    int maxScore ();
 
 };
 std::vector<std::string> tokenize (const std::string &s);

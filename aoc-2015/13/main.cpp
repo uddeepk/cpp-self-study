@@ -21,44 +21,47 @@ void print(std::vector <string> s) ;
 void print(std::pair<tuple<string, string>, int> p);
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+//    std::cout << "Hello, World!" << std::endl;
+//
+//    string testS = "Alice would gain 54 happiness units by sitting next to Bob.";
+//    string testS2 = "Alice would lose 79 happiness units by sitting next to Carol.";
+//    // check tokenize
+//    auto t = tokenize("Alice would gain 54 happiness units by sitting next to Bob.");
+//    print(t);
+//
+//    // check pair
+//    auto p = getHappinessPair(testS);
+//    print (p);
+//
+//    auto t2 = tokenize(testS2);
+//    print(t2);
+//
+//    auto p2 = getHappinessPair(testS2);
+//    print(p2);
+//    // Star1
+//
+//    for (const auto &c: t) {
+//        if(std::ranges::find(t2, c) == t2.end())
+//            t2.push_back(c);
+//    }
+//
+//    print(t2);
+//
+//    std::ranges::sort(t2);
+//
+//    print(t2);
+//    std::next_permutation(t2.begin(), t2.end()-1);
+//    print (t2);
 
-    string testS = "Alice would gain 54 happiness units by sitting next to Bob.";
-    string testS2 = "Alice would lose 79 happiness units by sitting next to Carol.";
-    // check tokenize
-    auto t = tokenize("Alice would gain 54 happiness units by sitting next to Bob.");
-    print(t);
+//    Solution soln("test.txt");
 
-    // check pair
-    auto p = getHappinessPair(testS);
-    print (p);
+//    print(soln._names);
+//    std::cout << soln.calculateScore(soln._names) << "\n";
 
-    auto t2 = tokenize(testS2);
-    print(t2);
+//    std::cout << soln.maxScore() << "\n";
 
-    auto p2 = getHappinessPair(testS2);
-    print(p2);
-    // Star1
-
-    for (const auto &c: t) {
-        if(std::ranges::find(t2, c) == t2.end())
-            t2.push_back(c);
-    }
-
-    print(t2);
-
-    std::ranges::sort(t2);
-
-    print(t2);
-    std::next_permutation(t2.begin(), t2.end()-1);
-    print (t2);
-
-    Solution soln("test.txt");
-
-    print(soln._names);
-    std::cout << soln.calculateScore(soln._names) << "\n";
-
-    std::cout << soln.maxScore() << "\n";
+    Solution mySoln ("input");
+    std::cout << "Star1: " << mySoln.maxScore();
     return 0;
 }
 
