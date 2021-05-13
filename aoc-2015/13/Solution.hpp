@@ -22,8 +22,9 @@ public:
 
     void addNames(const std::vector<std::string> &names);
 
-public:
     int calculateScore (std::vector <std::string> v);
+
+    int maxScore ();
 
 };
 std::vector<std::string> tokenize (const std::string &s);
