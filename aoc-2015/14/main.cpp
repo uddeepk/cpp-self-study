@@ -12,11 +12,23 @@ struct Reindeer {
     int calculateDistance (int t) const;
     int distanceFlownInCycle () const;
     int distanceFlown(int t) const;
+
+    // Part2
+    void update();
+    void fly();
+    void addPoint();
+
     std::string _name = "noname";
     int _flightSpeed = -1;
     int _flightTime = -1;
     int _restTime = -1;
     int _cycleTime = -1;
+
+    // FOr part2
+    int _flightTimeLeft ;
+    int _restingTimeLeft ;
+    int _distance;
+    int _points = 0;
 
     friend std::ostream& operator<< ( std::ostream&os, const Reindeer &r);
 };
@@ -32,11 +44,16 @@ Reindeer::Reindeer(const string &s) {
     _flightTime = std::stoi(tokens[6]);
     _restTime = std::stoi(tokens[13]);
     _cycleTime = _flightTime + _restTime;
+
+    // Part 2
+    _flightTimeLeft = _flightTime;
+    _restingTimeLeft = 0;
+    _distance = 0;
 }
 
 std::ostream &operator<<(std::ostream& os, const Reindeer &r) {
     os << r._name << " " << r._flightSpeed << "km/s " << r._flightTime << "s " << r._restTime << "s "
-    << r._cycleTime << "s.";
+    << r._cycleTime << "s " << r._distance << "km " << r._points << "points ";
     return os;
 }
 
@@ -60,6 +77,32 @@ int Reindeer::distanceFlown(int t) const {
     return t * _flightSpeed;
 }
 
+void Reindeer::update() {
+    if ( _flightTimeLeft > 0) {
+        fly();
+        if ( _flightTimeLeft == 1) {
+            _restingTimeLeft = _restTime;
+        }
+        --_flightTimeLeft;
+        return;
+    }
+
+    if ( _restingTimeLeft > 0) {
+        // Do nothing
+
+        if (_restingTimeLeft == 1)
+            _flightTimeLeft = _flightTime;
+        --_restingTimeLeft;
+    }
+}
+
+void Reindeer::fly() {
+    _distance += _flightSpeed; // Updating distance by 1 tick
+}
+
+void Reindeer::addPoint() {
+    ++_points;
+}
 std::vector<Reindeer> getVecReindeer (std::istream& is) ;
 template <typename T>
 void print(const std::vector<T> &v) {
@@ -67,11 +110,14 @@ void print(const std::vector<T> &v) {
         std::cout << x << "\n";
     }
 }
+
+void star2 (std::vector <Reindeer> &v);
+
 int main() {
 //    std::cout << "Hello, World!" << std::endl;
 //
-//    std::string s1 = "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.";
-//    std::string s2 = "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.";
+    std::string s1 = "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.";
+    std::string s2 = "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.";
 //    Reindeer comet (s1);
 //    Reindeer dancer {s2};
 //    std::cout << comet << "\n";
@@ -79,8 +125,8 @@ int main() {
 //
 //    // get input from file
 //    // Testing
-//    std::istringstream iss (s1 + "\n" + s2);
-//    std::vector<Reindeer> vecReindeer = getVecReindeer(iss);
+    std::istringstream iss (s1 + "\n" + s2);
+    std::vector<Reindeer> testVec = getVecReindeer(iss);
 //
 //    print(vecReindeer);
 
@@ -101,7 +147,22 @@ int main() {
 //    print(d);
 
     std::cout << " star1: " << std::ranges::max(d);
+    std::cout << "\n";
     //////
+
+    // Star 2
+
+    int n = 1000;
+
+    print(testVec);
+
+    while ( n-- > 0 ) {
+//        std::cout << n ;
+        star2(testVec);
+
+    }
+    print(testVec);
+
     return 0;
 }
 
@@ -126,4 +187,24 @@ std::vector<Reindeer> getVecReindeer(std::istream &is) {
         v.emplace_back(readBuffer);
     }
     return v;
+}
+
+void star2(std::vector<Reindeer> &v) {
+    // update all
+    std::ranges::for_each(v, [] (Reindeer &r) {
+        r.update();
+    });
+
+    // give point if max
+    //   1. get max
+    int max = std::ranges::max_element(v, [] (const Reindeer &lhs, const Reindeer &rhs) {
+        return lhs._distance < rhs._distance;
+    })->_distance;
+
+//    std::cout << " max =" << max << "\n";
+
+    std::ranges::for_each(v, [=] (Reindeer &r) {
+        if ( r._distance == max)
+            r.addPoint();
+    });
 }
