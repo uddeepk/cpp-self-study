@@ -112,6 +112,7 @@ void print(const std::vector<T> &v) {
 }
 
 void star2 (std::vector <Reindeer> &v);
+int getMaxDistance (const std::vector <Reindeer> &v);
 
 int main() {
 //    std::cout << "Hello, World!" << std::endl;
@@ -197,14 +198,17 @@ void star2(std::vector<Reindeer> &v) {
 
     // give point if max
     //   1. get max
-    int max = std::ranges::max_element(v, [] (const Reindeer &lhs, const Reindeer &rhs) {
-        return lhs._distance < rhs._distance;
-    })->_distance;
-
-//    std::cout << " max =" << max << "\n";
+    auto max = getMaxDistance(v);
 
     std::ranges::for_each(v, [=] (Reindeer &r) {
         if ( r._distance == max)
             r.addPoint();
     });
 }
+
+int getMaxDistance(const std::vector<Reindeer> &v) {
+    return std::ranges::max_element(v, [] (const Reindeer &lhs, const Reindeer &rhs) {
+        return lhs._distance < rhs._distance;
+    })->_distance;
+}
+
