@@ -114,6 +114,15 @@ void print(const std::vector<T> &v) {
 void star2 (std::vector <Reindeer> &v);
 int getMaxDistance (const std::vector <Reindeer> &v);
 
+template <typename MyFunction>
+int getMax(const std::vector<Reindeer> &v, MyFunction f) {
+    std::vector<int> data ;//(v.size());
+    std::ranges::transform(v, std::back_inserter(data), f);
+    return std::ranges::max(data);
+}
+
+int getPoints(const Reindeer &r);
+
 int main() {
 //    std::cout << "Hello, World!" << std::endl;
 //
@@ -136,6 +145,7 @@ int main() {
     std::ifstream myFile("input");
 
     std::vector<Reindeer> vecReindeer = getVecReindeer(myFile);
+    std::vector<Reindeer> vecReindeer2 = vecReindeer;
 
     std::vector<int> d;
     int time = 2503;
@@ -153,16 +163,17 @@ int main() {
 
     // Star 2
 
-    int n = 1000;
+    int n = 2503;
 
-    print(testVec);
+//    print(testVec);
 
     while ( n-- > 0 ) {
 //        std::cout << n ;
-        star2(testVec);
+        star2(vecReindeer2);
 
     }
-    print(testVec);
+//    print(testVec);
+    std::cout << "star2: " << getMax(vecReindeer2, getPoints);
 
     return 0;
 }
@@ -210,5 +221,9 @@ int getMaxDistance(const std::vector<Reindeer> &v) {
     return std::ranges::max_element(v, [] (const Reindeer &lhs, const Reindeer &rhs) {
         return lhs._distance < rhs._distance;
     })->_distance;
+}
+
+int getPoints(const Reindeer &r) {
+    return r._points;
 }
 
