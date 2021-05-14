@@ -5,6 +5,9 @@
 struct Reindeer {
     Reindeer(const std::string &s);
 
+    int calculateDistance (int t) const;
+    int distanceFlownInCycle () const;
+    int distanceFlown(int t) const;
     std::string _name = "noname";
     int _flightSpeed = -1;
     int _flightTime = -1;
@@ -33,6 +36,26 @@ std::ostream &operator<<(std::ostream& os, const Reindeer &r) {
     return os;
 }
 
+int Reindeer::distanceFlownInCycle() const {
+    return _flightTime * _flightSpeed;
+}
+
+int Reindeer::calculateDistance(int t) const{
+    int distance = 0;
+    int numberOfCycles = t / _cycleTime;
+    distance = numberOfCycles * distanceFlownInCycle();
+    t %= _cycleTime;
+    if ( t >= _flightTime)
+        distance += distanceFlownInCycle();
+    else
+        distance += distanceFlown(t);
+    return distance;
+}
+
+int Reindeer::distanceFlown(int t) const {
+    return t * _flightSpeed;
+}
+
 std::vector<Reindeer> getVecReindeer (std::istream& is) ;
 template <typename T>
 void print(const std::vector<T> &v) {
@@ -56,6 +79,10 @@ int main() {
     std::vector<Reindeer> vecReindeer = getVecReindeer(iss);
 
     print(vecReindeer);
+
+    std::cout << comet.calculateDistance(1000);
+
+
 
     return 0;
 }
