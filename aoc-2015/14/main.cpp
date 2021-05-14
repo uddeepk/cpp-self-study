@@ -124,23 +124,6 @@ int getMax(const std::vector<Reindeer> &v, MyFunction f) {
 int getPoints(const Reindeer &r);
 
 int main() {
-//    std::cout << "Hello, World!" << std::endl;
-//
-    std::string s1 = "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.";
-    std::string s2 = "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.";
-//    Reindeer comet (s1);
-//    Reindeer dancer {s2};
-//    std::cout << comet << "\n";
-//    std::cout << dancer << "\n";
-//
-//    // get input from file
-//    // Testing
-    std::istringstream iss (s1 + "\n" + s2);
-    std::vector<Reindeer> testVec = getVecReindeer(iss);
-//
-//    print(vecReindeer);
-
-//    std::cout << comet.calculateDistance(1000) << "\n";
 
     std::ifstream myFile("input");
 
