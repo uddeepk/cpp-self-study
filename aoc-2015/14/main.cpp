@@ -116,7 +116,7 @@ int getMaxDistance (const std::vector <Reindeer> &v);
 
 template <typename MyFunction>
 int getMax(const std::vector<Reindeer> &v, MyFunction f) {
-    std::vector<int> data ;//(v.size());
+    std::vector<int> data ;
     std::ranges::transform(v, std::back_inserter(data), f);
     return std::ranges::max(data);
 }
@@ -138,8 +138,6 @@ int main() {
         return r.calculateDistance(time); // change this for time
     });
 
-//    print(d);
-
     std::cout << " star1: " << std::ranges::max(d);
     std::cout << "\n";
     //////
@@ -147,15 +145,10 @@ int main() {
     // Star 2
 
     int n = 2503;
-
-//    print(testVec);
-
     while ( n-- > 0 ) {
-//        std::cout << n ;
         star2(vecReindeer2);
 
     }
-//    print(testVec);
     std::cout << "star2: " << getMax(vecReindeer2, getPoints);
 
     return 0;
